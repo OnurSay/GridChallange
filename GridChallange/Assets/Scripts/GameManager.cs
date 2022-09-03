@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
 
     public CinemachineVirtualCamera vCam1;
     public Camera OrtoCam;
+    double screenWidth;
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -50,12 +50,14 @@ public class GameManager : MonoBehaviour
 
             GameObject cell = Instantiate(cellPrefab, Vector3.zero, Quaternion.identity, cellParent.transform);
             cell.name = "Cell " + (i + 1);
+            //Scales the single cell to fit the cells to the grid surface, after that position them to make them look like aligned
             cell.transform.localScale = new Vector3(cell.transform.localScale.x * 5f / gridSize - 0.05f, cell.transform.localScale.y, cell.transform.localScale.z * 5f / gridSize - 0.05f);
             cell.transform.localPosition = new Vector3(((spaceBetween * (i % gridSize)) * 5f / gridSize) + ((cell.transform.localScale.x + 0.05f) / gridSize / 2f) * gridSize, 0.1319122f, ((spaceBetween * (i / gridSize)) * 5f / gridSize) + ((cell.transform.localScale.x + 0.05f) / gridSize / 2f) * gridSize);
             cells.Add(cell);
 
         }
 
+        //Sets the neighbor cells for each cell
         for (int i = 0; i < cells.Count; i += gridSize)
         {
             for (int z = i; z < i + gridSize; z++)
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void onTouchDown()
     {
+        //On click to the screen, send the ray and make the cell clicked and neighbors impacted
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
@@ -124,6 +127,7 @@ public class GameManager : MonoBehaviour
     }
     public void ChangeGridSize(string size)
     {
+        //Input field grid size changer
         Debug.Log(size);
         gridSize = int.Parse(size);
     }
