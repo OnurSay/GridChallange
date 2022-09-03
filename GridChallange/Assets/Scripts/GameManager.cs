@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         {
 
             GameObject cell = Instantiate(cellPrefab, Vector3.zero, Quaternion.identity, cellParent.transform);
-
+            cell.name = "Cell " + (i + 1);
             cell.transform.localScale = new Vector3(cell.transform.localScale.x * 5f / gridSize - 0.05f, cell.transform.localScale.y, cell.transform.localScale.z * 5f / gridSize - 0.05f);
             cell.transform.localPosition = new Vector3(((spaceBetween * (i % gridSize)) * 5f / gridSize) + ((cell.transform.localScale.x + 0.05f) / gridSize / 2f) * gridSize, 0.1319122f, ((spaceBetween * (i / gridSize)) * 5f / gridSize) + ((cell.transform.localScale.x + 0.05f) / gridSize / 2f) * gridSize);
             cells.Add(cell);
